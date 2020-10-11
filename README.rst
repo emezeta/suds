@@ -1651,7 +1651,8 @@ But what you need is:
      </soapenv:Body>
    </soapenv:Envelope>
 
- .. code:: python
+
+.. code:: python
 
    #!python
    from suds.plugin import MessagePlugin
