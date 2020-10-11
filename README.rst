@@ -121,7 +121,7 @@ all messages are at level DEBUG or ERROR.
 
 To register a console handler you can use basicConfig:
 
-.. code-block::
+.. code:: python
 
    #!python
    import logging
@@ -133,7 +133,7 @@ specific debugging doing the following: logging.getLogger(\<desired
 package&gt;).setLevel(logging.\<desired-level&gt;) A common example (show
 sent/received soap messages):
 
-.. code-block::
+.. code:: python
 
    #!python
    logging.getLogger('suds.client').setLevel(logging.DEBUG)
@@ -150,27 +150,25 @@ Suggested modules for debugging:
 Basic Usage
 -----------
 
-Version: API\^3\^
+Version: API 3
 
-The ``suds``
-``Client`` class provides a consolidated API for consuming web services.
+The `suds Client` class provides a consolidated API for consuming web services.
 The object contains (2) sub-namespaces:
 
-**service**\ :: The
-``service`` namespace provides a proxy for the consumed service. This
-object is used to invoke operations (methods) provided by the service
-endpoint.
+**service**:
+ 
+	The `service` namespace provides a proxy for the consumed service. This	object is used to invoke operations (methods) provided by the service endpoint.
 
-**factory**\ :: The
-``factory`` namespace provides a factory that may be used to create
-instances of objects and types defined in the WSDL.
+**factory**:
+ 
+	The ``factory`` namespace provides a factory that may be used to create instances of objects and types defined in the WSDL.
 
 You will need to know the url for WSDL for each service used. Simply
 create a client for that service as follows:
 
-.. code-block::
-
-   #!python
+.. code:: python 
+	
+	#!python
    from suds.client import Client
    url = 'http://localhost:7080/webservices/WebServiceTestBean?wsdl'
    client = Client(url)
@@ -179,7 +177,7 @@ create a client for that service as follows:
 You can inspect service object with: ``__str()__`` as follows to get a
 list of methods provide by the service:
 
-.. code-block::
+.. code:: python
 
    #!python
    print client
@@ -224,7 +222,7 @@ the signature of getPercentBodyFat(\ ``xs:string`` name,
 parameters are ``simple`` types. That is, they not objects. This
 method would be invoked as follows:
 
-.. code-block::
+.. code:: python
 
    #!python
    result = client.service.getPercentBodyFat('jeff', 68, 170)
@@ -233,7 +231,7 @@ method would be invoked as follows:
 
 You have 21% body fat.
 
-.. code-block::
+.. code:: python
 
    #!python
    result = client.service.getPercentBodyFat(name='jeff', height=68, weight=170)
@@ -242,7 +240,7 @@ You have 21% body fat.
 
 You have 21% body fat.
 
-.. code-block::
+.. code:: python
 
    #!python
    d = dict(name='jeff', height=68, weight=170)
@@ -266,7 +264,7 @@ So, to create a ``Person`` object to pass as an argument we need to
 get a person argument using the ``factory`` sub-namespace as
 follows:
 
-.. code-block::
+.. code:: python
 
    #!python
    person = client.factory.create('Person')
@@ -288,7 +286,7 @@ As you can see, the object is created as defined by the WSDL. The list
 of phone number is empty so we\'ll have to create a ``Phone``
 object:
 
-.. code-block::
+.. code:: python
 
    #!python
    phone = client.factory.create('Phone')
@@ -300,7 +298,7 @@ object:
 ... and the name (Name object) and age need to be set and we need to
 create a name object first:
 
-.. code-block::
+.. code:: python
 
    #!python
    name = client.factory.create('Name')
@@ -310,7 +308,7 @@ create a name object first:
 
 Now, let\'s set the properties of our ``Person`` object
 
-.. code-block::
+.. code:: python
 
    #!python
    person.name = name
@@ -320,7 +318,7 @@ Now, let\'s set the properties of our ``Person`` object
 
 or
 
-.. code-block::
+.. code:: python
 
    #!python
    person.phone.append(phone)
@@ -328,7 +326,7 @@ or
 
 ... and invoke our method named addPerson() as follows:
 
-.. code-block::
+.. code:: python
 
    #!python
    try:
@@ -363,7 +361,7 @@ takes a ``person`` argument of type: ``Person``. So, to create a
 ``Person`` object to pass as an argument we need to get a person
 object and we can do so by creating a simple python ``dict``.
 
-.. code-block::
+.. code:: python
 
    #!python
    person = {}
@@ -372,7 +370,7 @@ object and we can do so by creating a simple python ``dict``.
 According to the WSDL we know that the Person contains a list of Phone
 objects so we\'ll need ``dict``\ s for them as well.
 
-.. code-block::
+.. code:: python
 
    #!python
    phone = {
@@ -385,7 +383,7 @@ objects so we\'ll need ``dict``\ s for them as well.
 ... and the name (Name object) and age need to be set and we need to
 create a name object first:
 
-.. code-block::
+.. code:: python
 
    #!python
    name = {
@@ -396,7 +394,7 @@ create a name object first:
 
 Now, let\'s set the properties of our ``Person`` object
 
-.. code-block::
+.. code:: python
 
    #!python
    person['name'] = name
@@ -406,7 +404,7 @@ Now, let\'s set the properties of our ``Person`` object
 
 ... and invoke our method named addPerson() as follows:
 
-.. code-block::
+.. code:: python
 
    #!python
    try:
@@ -421,7 +419,7 @@ Faults
 The Client can be configured to throw web faults as ``WebFault`` or to
 return a tuple (\<status&gt;, \<returned-value&gt;) instead as follows:
 
-.. code-block::
+.. code:: python
 
    #!python
    client = client(url, faults=False)
@@ -489,9 +487,8 @@ Enumerations are handled as follows:
 
 Let\'s say the wsdl defines the following enumeration:
 
-.. code-block::
+.. code:: xml
 
-   #!xml
    <xs:simpleType name="resourceCategory">
      <xs:restriction base="xs:string">
        <xs:enumeration value="PLATFORM"/>
@@ -505,7 +502,7 @@ The client can instantiate the enumeration so it can be used. Misspelled
 references to elements of the ``enum`` will raise a ``AttrError``
 exception as:
 
-.. code-block::
+.. code:: python
 
    #!python
    resourceCategory = client.factory.create('resourceCategory')
@@ -528,7 +525,7 @@ a top level \"named\" type but rather defined within the (Person) type.
 In this case creating a (Name) object would have to be quanified by
 it\'s parent\'s name using the dot notation as follows:
 
-.. code-block::
+.. code:: python
 
    #!python
    name = client.factory.create('Person.Name')
@@ -538,7 +535,7 @@ If the type is in the same namespace as the wsdl (targetNamespace) then
 it may be referenced without any namespace qualification. If not, the
 type must be qualifed by either a namespace prefix such as:
 
-.. code-block::
+.. code:: python
 
    #!python
    name = client.factory.create('ns0:Person')
@@ -547,7 +544,7 @@ type must be qualifed by either a namespace prefix such as:
 Or, the name can be fully qualified by the namespace itself using the
 full qualification syntax as (as of 0.2.6):
 
-.. code-block::
+.. code:: python
 
    #!python
    name = client.factory.create('{http://test.server.enterprise.rhq.org/}person')
@@ -561,7 +558,7 @@ Services With Multiple Ports
 
 Some services are defined with multiple ports as:
 
-.. code-block::
+.. code:: python
 
    #!xml
    <wsdl:service name="BLZService">
@@ -575,7 +572,7 @@ Some services are defined with multiple ports as:
 
 And are reported by suds as:
 
-.. code-block::
+.. code:: python
 
    #!python
    url = 'http://www.thomas-bayer.com/axis2/services/BLZService?wsdl'
@@ -606,7 +603,7 @@ This example only has (1) method defined for each port but it could very
 likely have may methods defined. Suds does not require the method
 invocation to be qualifed (as shown above) by the port as:
 
-.. code-block::
+.. code:: python
 
    #!python
    client.service.<port>.getBank()
@@ -630,7 +627,7 @@ There are (2) ways to do this:
 
 
 
-.. code-block::
+.. code:: python
 
    #!python
    client.set_options(port='soap')
@@ -647,7 +644,7 @@ There are (2) ways to do this:
 
 
 
-.. code-block::
+.. code:: python
 
    #!python
    client.service.soap.getBank()
@@ -660,7 +657,7 @@ This example only has (1) method defined for each port but it could very
 likely have may methods defined. Suds does not require the method
 invocation to be qualifed (as shown above) by the port as:
 
-.. code-block::
+.. code:: python
 
    #!python
    client.service[port].getBank()
@@ -685,7 +682,7 @@ There are many ways to do this:
 
 
 
-.. code-block::
+.. code:: python
 
    #!python
    client.set_options(port='soap')
@@ -702,7 +699,7 @@ There are many ways to do this:
 
 
 
-.. code-block::
+.. code:: python
 
    #!python
    client.service['soap'].getBank()
@@ -718,7 +715,7 @@ There are many ways to do this:
 
 
 
-.. code-block::
+.. code:: python
 
    #!python
    client.service[0].getBank()
@@ -732,9 +729,8 @@ version: 0.3.7+
 Some WSDLs define multiple services which may (or may not) be defined
 with multiple ports as:
 
-.. code-block::
+.. code:: xml
 
-   #!xml
    <wsdl:service name="BLZService">
      <wsdl:port name="soap" binding="tns:BLZServiceSOAP11Binding">
        <soap:address location="http://www.thomas-bayer.com:80/axis2/services/BLZService"/>
@@ -753,7 +749,7 @@ with multiple ports as:
 
 And are reported by suds as:
 
-.. code-block::
+.. code:: python
 
    #!python
    url = 'http://www.thomas-bayer.com/axis2/services/BLZService?wsdl'
@@ -802,7 +798,7 @@ likely have may methods defined. Suds does **not** require the
 method invocation to be qualifed (as shown above) by the service and/or
 port as:
 
-.. code-block::
+.. code:: python
 
    #!python
    client.service[service][port].getBank()
@@ -834,7 +830,7 @@ There are many ways to do this:
 
 
 
-.. code-block::
+.. code:: python
 
    #!python
    client.set_options(service='OtherBLZService', port='soap')
@@ -851,7 +847,7 @@ There are many ways to do this:
 
 
 
-.. code-block::
+.. code:: python
 
    #!python
    client.service['OtherBLZService']['soap'].getBank()
@@ -868,7 +864,7 @@ There are many ways to do this:
 
 
 
-.. code-block::
+.. code:: python
 
    #!python
    client.service[1][0].getBank()
@@ -884,7 +880,7 @@ There are many ways to do this:
 
 
 
-.. code-block::
+.. code:: python
 
    #!python
    client.service['OtherBLZService'].getBank()
@@ -900,7 +896,7 @@ There are many ways to do this:
 
 
 
-.. code-block::
+.. code:: python
 
    #!python
    client.service[1].getBank()
@@ -917,7 +913,7 @@ SOAP Headers
 SOAP headers may be passed during the service invocation by using the
 ``soapheaders`` ``option`` as follows:
 
-.. code-block::
+.. code:: python
 
    #!python
    client = client(url)
@@ -930,7 +926,7 @@ SOAP headers may be passed during the service invocation by using the
 
 OR
 
-.. code-block::
+.. code:: python
 
    #!python
    client = client(url)
@@ -944,7 +940,7 @@ OR
 
 OR
 
-.. code-block::
+.. code:: python
 
    #!python
    client = client(url)
@@ -958,7 +954,7 @@ The ``soapheaders`` option may also be assigned a dictionary for
 those cases when optional headers are specified and users don\'t want to
 pass None place holders. This works much like the method parameters. Eg:
 
-.. code-block::
+.. code:: python
 
    #!python
    client = client(url)
@@ -982,7 +978,7 @@ used. This is done by constructing and passing an
 ``Element`` or collection of
 ``Elements`` as follows:
 
-.. code-block::
+.. code:: python
 
    #!python
    from suds.sax.element import Element
@@ -995,7 +991,7 @@ used. This is done by constructing and passing an
 
 Do **not** try to pass the header as an XML ``string`` such as:
 
-.. code-block::
+.. code:: python
 
    #!python
    client = client(url)
@@ -1004,16 +1000,11 @@ Do **not** try to pass the header as an XML ``string`` such as:
    result = client.service.addPerson(person)
 
 
-It will not work because: 1. Only
-``Elements`` are processed as ``custom`` headers. 1. The XML string
-would be escaped as &lt;ssn:SessionID&gt;123&lt;/ssn:SessionID&gt;
-anyway.
+It will not work because: 1. Only ``Elements`` are processed as ``custom`` headers. 2. The XML string would be escaped as &lt;ssn:SessionID&gt;123&lt;/ssn:SessionID&gt; anyway.
 
-*Notes: 1. Passing single
-``Elements`` as soap headers fixed in Ticket #232 (r533) and will be
-released on 0.3.7. 1. Reusing this
-``Element`` in subsequent calls fixed in Ticket #233 (r533) and will be
-released on 0.3.7.
+
+
+*Notes*: 1. Passing single ``Elements`` as soap headers fixed in Ticket #232 (r533) and will be released on 0.3.7. 1. Reusing this ``Element`` in subsequent calls fixed in Ticket #233 (r533) and will be released on 0.3.7.
 
 WS-SECURITY
 -----------
@@ -1021,7 +1012,7 @@ WS-SECURITY
 As of r452 / 0.3.4 (beta) to provide basic ws-security with
 ``UsernameToken`` with ``clear-text`` password (no digest).
 
-.. code-block::
+.. code:: python
 
    #!python
    from suds.wsse import *
@@ -1034,7 +1025,7 @@ As of r452 / 0.3.4 (beta) to provide basic ws-security with
 or, if the ``Nonce`` and ``Create`` elements are needed, they
 can be generated and set as follows:
 
-.. code-block::
+.. code:: python
 
    #!python
    from suds.wsse import *
@@ -1051,7 +1042,7 @@ can be generated and set as follows:
 but, if you want to manually set the ``Nonce`` and/or
 ``Created``\ , you may do as follows:
 
-.. code-block::
+.. code:: python
 
    #!python
    from suds.wsse import *
@@ -1073,9 +1064,8 @@ style will define a single document as the message payload. The
 that method by displaying the method signature as the contents (nodes)
 of the document. Eg:
 
-.. code-block::
+.. code:: xml
 
-   #!xml
    <schema>
    ...
    <xs:element name="Foo" type = "tns:Foo"/>
@@ -1099,7 +1089,7 @@ of the document. Eg:
 
 Suds will report the method ``foo`` signature as:
 
-.. code-block::
+.. code:: python
 
    foo(xs:string name, xs:int age,)
 
@@ -1108,9 +1098,8 @@ This provides an RPC feel to the document/literal soap binding style.
 
 Now, if the wsdl defines:
 
-.. code-block::
+.. code:: xml
 
-   #!xml
    <schema>
    ...
    <xs:element name="Foo" type = "tns:Foo"/>
@@ -1136,8 +1125,9 @@ Now, if the wsdl defines:
 
 Suds will be forced to report the method ``foo`` signature as:
 
-.. code-block::
+.. code:: python
 
+   #!python
    foo(Foo foo, xs:string bar)
 
 
@@ -1155,7 +1145,7 @@ As of version 0.3.3 and newer, ``basic`` HTTP authentication
 as defined by `RFC-2617 <http://www.ietf.org/rfc/rfc2617.txt>`_ can be
 done as follows:
 
-.. code-block::
+.. code:: python
 
    #!python
    client = Client(url, username='elmer', password='fudd')
@@ -1172,7 +1162,7 @@ that don\'t follow the challenge/response model. Rather, it sets the
 ``Authentication:`` http header on **all** http requests. This
 transport can be used as follows:
 
-.. code-block::
+.. code:: python
 
    #!python
    from suds.transport.http import HttpAuthenticated
@@ -1182,7 +1172,7 @@ transport can be used as follows:
 
 Or
 
-.. code-block::
+.. code:: python
 
    #!python
    from suds.transport.http import HttpAuthenticated
@@ -1198,7 +1188,7 @@ urllib2 in the suds default
 features provided by urllib2. For example basic HTTP authentication
 could be implemented as follows:
 
-.. code-block::
+.. code:: python
 
    #!python
    myurl = 'http://localhost:7080/webservices/WebServiceTestBean?wsdl'
@@ -1229,7 +1219,7 @@ As of 0.3.8, suds includes a
 
 To use this, simply do something like:
 
-.. code-block::
+.. code:: python
 
    #!python
    from suds.transport.https import WindowsHttpAuthenticated
@@ -1246,7 +1236,7 @@ proxy options can be passed set using Client.set_options. The proxy
 options must contain a dictionary where keys=protocols and values are
 the hostname (or IP) and port of the proxy.
 
-.. code-block::
+.. code:: python
 
    #!python
    ...
@@ -1265,16 +1255,17 @@ to be processed as if returned by the soap server, simply specify the
 ``__inject`` keyword argument with a value of a dictionary
 containing either:
 
+        msg = <message *string*>
 
-* msg = \<message string&gt;
-* reply = \<reply string&gt;
-* fault = \<fault string&gt;
+        reply = <reply *string*>
+        
+        fault = <fault *string*>
 
 when invoking the service. Eg:
 
 Sending a raw soap message:
 
-.. code-block::
+.. code:: python
 
    #!python
    message = \
@@ -1290,7 +1281,7 @@ Sending a raw soap message:
 
 Injecting a response for testing:
 
-.. code-block::
+.. code:: python
 
    #!python
    reply = \
@@ -1313,8 +1304,9 @@ This can be a problem when suds is used against an endpoint which has a self-sig
 
 One approach to turn off certificate validation in suds is to use a custom transport class. For example in Python 3:
 
-.. code-block::
+.. code:: python
 
+   #!python
    import urllib.request
    import ssl
    import suds.transport.http
@@ -1335,8 +1327,9 @@ One approach to turn off certificate validation in suds is to use a custom trans
 
 In addition, if a custom set of certificates and/or root CA is needed, this can also be done via a custom transport class. For example, in Python 3:
 
-.. code-block::
+.. code:: python
 
+   #!python
    class ClientHttpsTransport(HttpTransport):
        def __init__(self, certfile, keyfile, cafile, *args, **kwargs):
            super(ClientHttpsTransport, self).__init__(*args, **kwargs)
@@ -1364,8 +1357,9 @@ Per request timeouts can be set by using a ``__timeout`` keyword argument in
 each call. This supersedes the global client default. For example, the
 following call will have a timeout of 10 seconds:
 
-.. code-block:: python
+.. code:: python
 
+   #!python
    client = Client(url, timeout=30)
    client.service.test(__timeout=10)
 
@@ -1385,7 +1379,7 @@ The default cache is a
 
 This duration may be adjusted as follows:
 
-.. code-block::
+.. code:: python
 
    #!python
    cache = client.options.cache
@@ -1394,7 +1388,7 @@ This duration may be adjusted as follows:
 
 OR
 
-.. code-block::
+.. code:: python
 
    #!python
     cache.setduration(seconds=90)
@@ -1411,7 +1405,7 @@ The cache is an
 ``Cache`` object or may be disabled by setting the option to None.
 So, uses may plug-in any kind of cache they want.
 
-.. code-block::
+.. code:: python
 
    #!python
    from suds.cache import Cache
@@ -1422,7 +1416,7 @@ So, uses may plug-in any kind of cache they want.
 
 To disable caching:
 
-.. code-block::
+.. code:: python
 
    #!python
    client.set_options(cache=None)
@@ -1458,7 +1452,7 @@ doctors
 
 
 
-.. code-block::
+.. code:: python
 
    #!python
    imp = Import('http://schemas.xmlsoap.org/soap/encoding/')
@@ -1479,7 +1473,7 @@ For cases where the schemaLocation is not bound to the
 namespace, the
 ``Import`` can be created specifying the location has follows:
 
-.. code-block::
+.. code:: python
 
    #!python
    imp = Import('http://www.w3.org/2001/XMLSchema', location='http://www.w3.org/2001/XMLSchema.xsd')
@@ -1492,7 +1486,7 @@ namespace, the
 A commonly referenced schema (that is not imported) is the SOAP section
 5 encoding schema. This can now be fixed as follows:
 
-.. code-block::
+.. code:: python
 
    #!python
    imp = Import('http://schemas.xmlsoap.org/soap/encoding/')
@@ -1526,7 +1520,7 @@ a schema but does not look outside unless:
 
 
 
-.. code-block::
+.. code:: python
 
    #!python
    from suds.xsd.sxbasic import Import
@@ -1537,7 +1531,7 @@ a schema but does not look outside unless:
 
 Or, the shorthand (when location is the same as the namespace URI)
 
-.. code-block::
+.. code:: python
 
    #!python
    Import.bind(ns)
@@ -1608,7 +1602,7 @@ The ``MessagePlugin`` currently has (5) hooks
 
 General usage:
 
-.. code-block::
+.. code:: python
 
    #!python
    from suds.plugin import *
@@ -1632,7 +1626,7 @@ doctor, we can do this.
 
 Say our envelope is being generated by suds as:
 
-.. code-block::
+.. code:: xml
 
    <soapenv:Envelope>
      <soapenv:Body>
@@ -1646,7 +1640,7 @@ Say our envelope is being generated by suds as:
 
 But what you need is:
 
-.. code-block::
+.. code:: xml
 
    <soapenv:Envelope>
      <soapenv:Body>
@@ -1656,6 +1650,8 @@ But what you need is:
        </ns0:foo>
      </soapenv:Body>
    </soapenv:Envelope>
+
+ .. code:: python
 
    #!python
    from suds.plugin import MessagePlugin
@@ -1677,7 +1673,7 @@ In the future, the ``Binding.replyfilter`` and ``doctor``
 
 In doing this, we can treat the ``ImportDoctor`` as a plugin:
 
-.. code-block::
+.. code:: python
 
    #!python
    imp = Import('http://www.w3.org/2001/XMLSchema')
@@ -1688,7 +1684,7 @@ In doing this, we can treat the ``ImportDoctor`` as a plugin:
 
 We can also replace our Binding.replyfilter() with a plugin as follows:
 
-.. code-block::
+.. code:: python
 
    #!python
    def myfilter(reply):
