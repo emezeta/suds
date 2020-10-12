@@ -1,5 +1,3 @@
-[![Build
-Status](https://travis-ci.org/suds-community/suds.svg?branch=master)](https://travis-ci.org/suds-community/suds)
 
 # Overview
 

@@ -1,1 +1,5 @@
-.. include:: ../../README.rst
+======================
+Suds Community Project
+======================
+
+.. include:: ../../README.md
