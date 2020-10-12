@@ -558,9 +558,8 @@ Services With Multiple Ports
 
 Some services are defined with multiple ports as:
 
-.. code:: python
+.. code:: xml
 
-   #!xml
    <wsdl:service name="BLZService">
      <wsdl:port name="soap" binding="tns:BLZServiceSOAP11Binding">
        <soap:address location="http://www.thomas-bayer.com:80/axis2/services/BLZService"/>
@@ -1064,7 +1063,6 @@ of the document. Eg:
 
 .. code:: xml
 
-   #!xml
    <schema>
    ...
    <xs:element name="Foo" type = "tns:Foo"/>
@@ -1099,7 +1097,6 @@ Now, if the wsdl defines:
 
 .. code:: xml
 
-   #!xml
    <schema>
    ...
    <xs:element name="Foo" type = "tns:Foo"/>
@@ -1299,9 +1296,12 @@ SSL certificate verification & Custom Certificates
 
 With Python 2.7.9, SSL/TLS verification is turned on by default.
 
-This can be a problem when suds is used against an endpoint which has a self-signed certificate, which is quite common in the corporate intranet world.
+This can be a problem when suds is used against an endpoint which has a 
+self-signed certificate, which is quite common in the corporate intranet 
+world.
 
-One approach to turn off certificate validation in suds is to use a custom transport class. For example in Python 3:
+One approach to turn off certificate validation in suds is to use a custom
+transport class. For example in Python 3:
 
 .. code:: python
 
