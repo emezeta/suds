@@ -156,7 +156,7 @@ The `suds Client` class provides a consolidated API for consuming web services.
 The object contains (2) sub-namespaces:
 
 **service**:
- 
+
 	The `service` namespace provides a proxy for the consumed service. This	object is used to invoke operations (methods) provided by the service endpoint.
 
 **factory**:
@@ -167,8 +167,8 @@ You will need to know the url for WSDL for each service used. Simply
 create a client for that service as follows:
 
 .. code:: python 
-	
-	#!python
+
+   #!python
    from suds.client import Client
    url = 'http://localhost:7080/webservices/WebServiceTestBean?wsdl'
    client = Client(url)
@@ -1002,8 +1002,6 @@ Do **not** try to pass the header as an XML ``string`` such as:
 
 It will not work because: 1. Only ``Elements`` are processed as ``custom`` headers. 2. The XML string would be escaped as &lt;ssn:SessionID&gt;123&lt;/ssn:SessionID&gt; anyway.
 
-
-
 *Notes*: 1. Passing single ``Elements`` as soap headers fixed in Ticket #232 (r533) and will be released on 0.3.7. 1. Reusing this ``Element`` in subsequent calls fixed in Ticket #233 (r533) and will be released on 0.3.7.
 
 WS-SECURITY
@@ -1066,6 +1064,7 @@ of the document. Eg:
 
 .. code:: xml
 
+   #!xml
    <schema>
    ...
    <xs:element name="Foo" type = "tns:Foo"/>
@@ -1100,6 +1099,7 @@ Now, if the wsdl defines:
 
 .. code:: xml
 
+   #!xml
    <schema>
    ...
    <xs:element name="Foo" type = "tns:Foo"/>
@@ -1127,7 +1127,6 @@ Suds will be forced to report the method ``foo`` signature as:
 
 .. code:: python
 
-   #!python
    foo(Foo foo, xs:string bar)
 
 
@@ -1306,7 +1305,6 @@ One approach to turn off certificate validation in suds is to use a custom trans
 
 .. code:: python
 
-   #!python
    import urllib.request
    import ssl
    import suds.transport.http
@@ -1329,7 +1327,6 @@ In addition, if a custom set of certificates and/or root CA is needed, this can 
 
 .. code:: python
 
-   #!python
    class ClientHttpsTransport(HttpTransport):
        def __init__(self, certfile, keyfile, cafile, *args, **kwargs):
            super(ClientHttpsTransport, self).__init__(*args, **kwargs)
@@ -1359,7 +1356,6 @@ following call will have a timeout of 10 seconds:
 
 .. code:: python
 
-   #!python
    client = Client(url, timeout=30)
    client.service.test(__timeout=10)
 
@@ -1652,7 +1648,9 @@ But what you need is:
    </soapenv:Envelope>
 
 
-   
+
+
+
 .. code:: python
 
    #!python
